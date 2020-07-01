@@ -19,15 +19,15 @@ resources:
 -   name: repo
     type: git
     source:
-        private_key: ((private_key))
-        uri: git@github.com:laidbackware/aws-pks-pas.git
+        private_key: ((git_private_key))
+        uri: git@github.com:laidbackware/lab-sleeper.git
         branch: master
 
+jobs:
 -   name: suspend-and-power-down
     plan:
     -   get: repo
     -   task: suspend-and-power-down
-        image: platform-automation-image
         params:
             << : *govc
         file: repo/tasks/put-to-sleep/task.yml
@@ -36,7 +36,6 @@ resources:
     plan:
     -   get: repo
     -   task: wake-up-host
-        image: platform-automation-image
         params:
             HOST_IP: ((host_ip))
             HOST_CIDR_INT: ((host_cidr_int))
@@ -44,7 +43,6 @@ resources:
         file: repo/tasks/wake-up/task.yml
 
     -   task: resume-all-vms
-        image: platform-automation-image
         params:
             << : *govc
         file: repo/tasks/resume-vms/task.yml

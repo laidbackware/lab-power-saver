@@ -2,6 +2,12 @@
 
 set -euxo pipefail
 
+if $(curl -k --output /dev/null --silent --head --fail -m 5 https://${HOST_IP})
+then
+    echo "Host is already online"
+    exit 0
+fi
+
 NETWORK_BROADCAST=$(ipcalc -b ${HOST_IP}/${HOST_CIDR_INT} |grep Broadcast|cut -d ' ' -f2)
 
 echo ${NETWORK_BROADCAST}

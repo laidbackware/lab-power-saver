@@ -8,10 +8,10 @@ RUN apk update && apk add git findutils \
 
 FROM alpine 
 
-COPY --from=code /go/bin/govc /govc
+COPY --from=code /go/bin/govc /usr/local/bin/govc
 
 RUN apk update  \
     && apk add bash jq ipcalc awake \
     && rm -rf /var/cache/apk/*
 
-ENTRYPOINT ["/govc"]
+ENTRYPOINT ["/usr/local/bin/govc"]

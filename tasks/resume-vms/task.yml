@@ -18,4 +18,4 @@ params:
   GOVC_INSECURE: true
   
 run:
-  path: repo/tasks/put-to-sleep/task.sh
+  path: repo/tasks/resume-vms/task.sh

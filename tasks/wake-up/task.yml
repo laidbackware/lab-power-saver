@@ -17,4 +17,4 @@ params:
   # The mac address of the host to the powered on
 
 run:
-  path: repo/tasks/put-to-sleep/task.sh
+  path: repo/tasks/wake-up/task.sh
