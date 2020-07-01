@@ -1,0 +1,50 @@
+---
+anchors:
+-   govc: &govc
+        GOVC_URL: ((host_ip))
+        # vCenter credentials
+        GOVC_USERNAME: ((host_username))
+        GOVC_PASSWORD: ((host_password))
+        # disable cert validation
+        GOVC_INSECURE: true
+
+resource_types:
+- name: image
+  type: docker-image
+  source:
+    repository: pivotalcf/pivnet-resource
+    tag: latest-final
+
+resources:
+-   name: repo
+    type: git
+    source:
+        private_key: ((private_key))
+        uri: git@github.com:laidbackware/aws-pks-pas.git
+        branch: master
+
+-   name: suspend-and-power-down
+    plan:
+    -   get: repo
+    -   task: suspend-and-power-down
+        image: platform-automation-image
+        params:
+            << : *govc
+        file: repo/tasks/put-to-sleep/task.yml
+
+-   name: power-up
+    plan:
+    -   get: repo
+    -   task: wake-up-host
+        image: platform-automation-image
+        params:
+            HOST_IP: ((host_ip))
+            HOST_CIDR_INT: ((host_cidr_int))
+            HOST_MAC: ((host_mac))
+        file: repo/tasks/wake-up/task.yml
+
+    -   task: resume-all-vms
+        image: platform-automation-image
+        params:
+            << : *govc
+        file: repo/tasks/resume-vms/task.yml

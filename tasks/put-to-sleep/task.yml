@@ -1,0 +1,21 @@
+---
+platform: linux
+image_resource:
+  type: docker-image
+  source: 
+    repository: laidbackware/alpine-govc-wake
+
+inputs:
+- name: repo
+
+params:
+  GOVC_URL:
+  # The IP address of the host
+  GOVC_USERNAME:
+  # The username for the host
+  GOVC_PASSWORD:
+  # The password for the host
+  GOVC_INSECURE: true
+  
+run:
+  path: repo/tasks/put-to-sleep/task.sh

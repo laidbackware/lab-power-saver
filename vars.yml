@@ -1,0 +1,5 @@
+---
+host_ip: 192.168.0.150
+host_username: root
+host_cidr_int: 24
+host_mac: 38:2c:4a:71:b9:34

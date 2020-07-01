@@ -1,0 +1,20 @@
+---
+platform: linux
+image_resource:
+  type: docker-image
+  source: 
+    repository: laidbackware/alpine-govc-wake
+
+inputs:
+- name: repo
+
+params:
+  HOST_IP:
+  # The IP address of the host to be powered on
+  HOST_CIDR_INT:
+  # The cidr size as an integer
+  HOST_MAC:
+  # The mac address of the host to the powered on
+
+run:
+  path: repo/tasks/put-to-sleep/task.sh
