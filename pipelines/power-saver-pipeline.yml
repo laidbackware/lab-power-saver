@@ -9,24 +9,40 @@ anchors:
         GOVC_INSECURE: true
 
 resource_types:
-- name: image
+- name: cron-resource
   type: docker-image
   source:
-    repository: pivotalcf/pivnet-resource
-    tag: latest-final
+    repository: cftoolsmiths/cron-resource
+    tag: latest
 
 resources:
 -   name: repo
     type: git
+    check_every: 10m
     source:
-        private_key: ((git_private_key))
-        uri: git@github.com:laidbackware/lab-sleeper.git
+        uri: https://github.com/laidbackware/lab-power-saver.git
         branch: master
+
+-   name: power-on-trigger
+    type: cron-resource
+    check_every: 10m
+    source:
+        expression: ((power_on_expression)) # Run at 8am Monday to Friday
+        location: ((time_zone))
+
+-   name: power-off-trigger
+    type: cron-resource
+    check_every: 10m
+    source:
+        expression: ((power_off_expression)) # Run at 6pm Monday to Friday
+        location: ((time_zone))
 
 jobs:
 -   name: suspend-and-power-down
     plan:
     -   get: repo
+    -   get: power-off-trigger
+        trigger: true
     -   task: suspend-and-power-down
         params:
             << : *govc
@@ -35,6 +51,8 @@ jobs:
 -   name: power-up
     plan:
     -   get: repo
+    -   get: power-on-trigger
+        trigger: true
     -   task: wake-up-host
         params:
             HOST_IP: ((host_ip))

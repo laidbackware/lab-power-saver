@@ -11,7 +11,7 @@ FROM alpine
 COPY --from=code /go/bin/govc /usr/local/bin/govc
 
 RUN apk update  \
-    && apk add bash jq ipcalc awake \
+    && apk add bash jq ipcalc awake curl \
     && rm -rf /var/cache/apk/*
 
 ENTRYPOINT ["/usr/local/bin/govc"]
