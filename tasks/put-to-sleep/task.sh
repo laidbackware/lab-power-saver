@@ -2,12 +2,12 @@
 
 set -euxo pipefail
 
-if ! $(curl -k --output /dev/null --silent --head --fail -m 5 https://${HOST_IP})
+if $(curl -k --output /dev/null --silent --head --fail -m 5 https://${HOST_IP})
 then
+    echo "Host ${HOST_IP} is online, attempting to suspend"
+else
     echo "Host is already offline"
     exit 0
-else
-    echo "Host ${HOST_IP} is online, attempting to suspend"
 fi
 
 
