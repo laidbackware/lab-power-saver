@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -euxo pipefail
+set -euo pipefail
 
 HOSTS="$(govc ls /ha-datacenter/host)"
 
@@ -10,7 +10,7 @@ do
      then
         govc host.maintenance.exit  ${host}
     else
-        echo "Host ${host} is not in maintenance mode"
+        echo "Host ${host} is up and not in maintenance mode"
     fi
 done
 
@@ -33,6 +33,8 @@ echo "$TO_RESUME"
 if [ ! -z "$TO_RESUME" ]
 then
     govc    vm.power -on -wait $TO_RESUME
+else
+    echo "No suspended VMs to resume"
 fi
 
 

@@ -48,7 +48,7 @@ jobs:
             << : *govc
         file: repo/tasks/put-to-sleep/task.yml
 
--   name: power-up
+-   name: power-up-and-resume
     plan:
     -   get: repo
     -   get: power-on-trigger

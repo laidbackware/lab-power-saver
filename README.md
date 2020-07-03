@@ -11,15 +11,21 @@ The suspend job will suspent all running machines and power down the host. The r
 Update vars.yml to include the details of the host and modify timing if necessary.
 Cron resource docs - https://github.com/pivotal-cf-experimental/cron-resource
 
-You must already be logged into a team. 
+You must already be logged into a team, with this assuming the team is called power-saver. 
 
 Set pipeline with the correct host password
-`fly -t main sp -p power-saver -c ./pipelines/power-saver-pipeline.yml -l ./vars.yml -v host_password=MY_PASSWORD`
+`fly -t power-saver sp -p power-saver -c ./pipelines/power-saver-pipeline.yml -l ./vars.yml -v host_password=MY_PASSWORD`
 
 Unpause pipeline
-`fly -t main up -p power-saver`
+`fly -t power-saver unpause-pipeline -p power-saver`
 
-To prevent one of the schedules from running simply pause the respective job in Concourse. Note that on un-pausing the job will trigger if a schedule has recently passed.
+To prevent the schedules from running simply pause pipeline.
+`fly -t power-saver pause-pipeline -p power-saver`
+
+# Running from the CLI
+From BASH based systems to be about to run a power up, power down command, add the following to your .bashrc, remembering to update you Concourse credentials
+
+``
 
 # Docker Build Instructions
 Login to Docker Hub.
