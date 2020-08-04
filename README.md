@@ -25,7 +25,26 @@ To prevent the schedules from running simply pause pipeline.
 # Running from the CLI
 From BASH based systems to be about to run a power up, power down command, add the following to your .bashrc, remembering to update you Concourse credentials
 
-``
+```
+# power up home lab
+function labon() {
+    # Log into Concourse
+    fly login -t power-saver -c http://192.168.0.4:8880 -u admin -p <concourse password> -n main
+    # Un-pause pipeline in case it is paused
+    fly -t power-saver unpause-pipeline -p power-saver 
+    # Trigger power on job and watch
+    fly -t power-saver trigger-job --job power-saver/power-up-and-resume --watch
+}
+
+function laboff() {
+    # Log into Concourse
+    fly login -t power-saver -c http://192.168.0.4:8880 -u admin -p <concourse password> -n main
+    # Un-pause pipeline in case it is paused
+    fly -t power-saver unpause-pipeline -p power-saver
+    # Trigger power on job and watch
+    fly -t power-saver trigger-job --job power-saver/suspend-and-power-down --watch
+}
+```
 
 # Docker Build Instructions
 Login to Docker Hub.
