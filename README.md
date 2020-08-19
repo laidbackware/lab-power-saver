@@ -8,6 +8,9 @@ The suspend job will suspent all running machines and power down the host. The r
 - Wake on LAN enabled on the hosts
 
 # Instructions
+
+NOTE - VM names must not contain spaces. 
+
 Update vars.yml to include the details of the host and modify timing if necessary.
 Cron resource docs - https://github.com/pivotal-cf-experimental/cron-resource
 

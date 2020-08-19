@@ -1,9 +1,17 @@
 ---
-host_ip: 192.168.0.150
+host_ip: "192.168.0.150"
 host_username: root
-host_cidr_int: 24
+host_cidr_int: "24"
 host_mac: 38:2c:4a:71:b9:34
 
 time_zone: "Europe/London"
+
+# power_up_time:
+#     start: "08:00"
+#     stop: "08:30"   
+# power_down_time:
+#     start: "20:00"
+#     stop: "20:30"   
+    
 power_on_expression: "0 8 * * 1-5" # Run at 8am Monday to Friday
 power_off_expression: "0 20 * * 1-5" # Run at 6pm Monday to Friday
