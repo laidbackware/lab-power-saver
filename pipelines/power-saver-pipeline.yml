@@ -23,35 +23,35 @@ resources:
         uri: https://github.com/laidbackware/lab-power-saver.git
         branch: master
 
+# -   name: power-on-trigger
+#     type: cron-resource
+#     check_every: 10m
+#     source:
+#         expression: ((power_on_expression)) # Run at 8am Monday to Friday
+#         location: ((time_zone))
+
+# -   name: power-off-trigger
+#     type: cron-resource
+#     check_every: 10m
+#     source:
+#         expression: ((power_off_expression)) # Run at 6pm Monday to Friday
+#         location: ((time_zone))
+
 -   name: power-on-trigger
-    type: cron-resource
-    check_every: 10m
+    type: time
+    check_every: 15m
     source:
-        expression: ((power_on_expression)) # Run at 8am Monday to Friday
+        start: ((power_up_time.start))
+        stop: ((power_up_time.stop))
         location: ((time_zone))
 
 -   name: power-off-trigger
-    type: cron-resource
-    check_every: 10m
+    type: time
+    check_every: 15m
     source:
-        expression: ((power_off_expression)) # Run at 6pm Monday to Friday
+        start: ((power_down_time.start))
+        stop: ((power_down_time.stop))
         location: ((time_zone))
-
-# -   name: power-on-trigger
-#     type: time
-#     check_every: 15m
-#     source:
-#         start: ((power_up_time.start))
-#         stop: ((power_up_time.stop))
-#         location: ((time_zone))
-
-# -   name: power-of-trigger
-#     type: time
-#     check_every: 15m
-#     source:
-#         start: ((power_down_time.start))
-#         stop: ((power_down_time.stop))
-#         location: ((time_zone))
 
 jobs:
 -   name: suspend-and-power-down
