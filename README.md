@@ -1,6 +1,6 @@
 # lab-sleeper
-Concourse pipeline to power manager an ESXi home lab running on a single ESXi server.
-The suspend job will suspent all running machines and power down the host. The resume job will send a Wake on LAN packet, wait for the host to become available and then power on any suspended VMs.
+Concourse pipeline to power manage an ESXi home lab running on a single ESXi server.
+The suspend job will suspend all running machines and power down the host. The resume job will send a Wake on LAN packet, wait for the host to become available and then power on any suspended VMs.
 
 # Requirements
 - Concourse CI
